@@ -29,7 +29,7 @@
 					<h1>Soluciones reales funcionales</h1>
 				</section>
 				<section>
-					<h2>Composicion y dependencias de tareas</h2>
+					<h2>Composición y dependencias de tareas</h2>
 						<li class="fragment">Tarea A: Llamada a un servicio rest A <br>
                             <div style ="text-align: center">
                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
@@ -140,7 +140,7 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
 									</table>
 								</section>
                 <section>
-                    <h2>Implementacion</h2>
+                    <h2>Implementación</h2>
 										<pre><code class="java hljs" data-trim>
 CompletableFuture&lt;String&gt; posibleResult = asyncRestApi.pay(sale)
 	.thenComposeAsync(res -> asyncCrm.register(res, sale))
@@ -163,6 +163,10 @@ val res = for{
 res.forEach(println)
 </code></pre>
 								</section>
+									<section>
+										<h2>Muchas Gracias!</h2>
+										<h2>?</h2>
+									</section>
 			</div>
 		</div>
 
