@@ -1,6 +1,6 @@
 /* global module:false */
 module.exports = function(grunt) {
-	var port = grunt.option('port') || 3000;
+	var port = process.env.PORT || 3000;
 	var base = grunt.option('base') || '.';
 
 	// Project configuration
