@@ -44,7 +44,7 @@
 					</ul>
 				</section>
                 <section>
-                    <h2>Ejecucion bloqueante</h2>
+                    <h2>Ejecución bloqueante</h2>
                     <pre><code class="java hljs" data-trim>
 String state = restApi.pay(sale);
 
@@ -57,7 +57,7 @@ System.out.println(state + result + sent);
 
                 </section>
                 <section>
-                    <h2>Wellcome to Callback Hell</h2>
+                    <h2>Welcome to Callback Hell</h2>
                     <pre><code class="java hljs" data-trim>
 // get f4/f5 after dependency f2 completes
 executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
@@ -82,13 +82,13 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
 </code></pre>
                 </section>
                 <section>
-                    <p>Existe una manera mas facil?</p>
-                    <p class="fragment">Ya que estamos una manera mas funcional<br>
+                    <p>Existe una manera mas fácil?</p>
+                    <p class="fragment">Ya que estamos, una manera mas funcional<br>
 										<img style="background: none !important; border: none; box-shadow: none;" src="trphl.png" alt="lambda question">
 										</p>
                 </section>
                 <section>
-                    <h2>Monadas!</h2>
+                    <h2>Mónadas!</h2>
 										<p class="fragment fade-out">Un endofunctor con dos transformaciones naturales</p>
                     <ul class="fragment">
 											<li>Un "Constructor" (unit)</li>
@@ -97,7 +97,7 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
 										<p class="fragment">Representan un contexto</p>
                 </section>
 								<section>
-									<h2>Monadas que ya usamos</h2>
+									<h2>Mónadas que ya usamos</h2>
 									<table>
 										<thead>
 											<tr>
@@ -121,7 +121,7 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
 									</table>
 								</section>
 								<section>
-									<span>Monada + Asincronismo = CompletableFuture</span>
+									<span>Mónada + Asincronismo = CompletableFuture</span>
 									<table class="fragment">
 										<thead>
 											<tr>
