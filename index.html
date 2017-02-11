@@ -26,7 +26,8 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1>Soluciones reales funcionales!</h1>
+					<h1>FRP</h1>
+					<h3>o Como aprendí a dejar de preocuparme y amar las mónadas</h3>
 				</section>
 				<section>
 					<h2>Composición y dependencias de tareas</h2>
@@ -52,7 +53,7 @@ String result = crm.register(state, sale);
 
 String sent = smtp.send(sale);
 //…
-System.out.println(state + result + sent);
+println(state + result + sent);
 </code></pre>
 
                 </section>
@@ -102,12 +103,14 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
 										<thead>
 											<tr>
 												<th></th>
+												<th></th>
 												<th>unit</th>
 												<th>bind</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
+												<td rowspan="2">Java</td>
 												<td style="font-weight: bold;">Optional&lt;T&gt;</td>
 												<td>Optional.of</td>
 												<td>opt.flatMap</td>
@@ -117,14 +120,32 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
 												<td>Stream.of</td>
 												<td>strm.flatMap</td>
 											</tr>
+											<tr>
+													<td rowspan="2">Scala</td>
+													<td style="font-weight: bold;">Either[A,B]</td>
+													<td>Right() o Left()</td>
+													<td>either.flatMap</td>
+											</tr>
+											<tr>
+												<td style="font-weight: bold;">Try[A]</td>
+												<td>Try{}</td>
+												<td>try.flatMap</td>
+											</tr>
+											<tr>
+												<td>C#</td>
+												<td style="font-weight: bold;">List&lt;T&gt;</td>
+												<td>new List()</td>
+												<td>list.SelectMany</td>
+											</tr>
 										</tbody>
 									</table>
 								</section>
 								<section>
-									<span>Mónada + Asincronismo = CompletableFuture</span>
+									<div>Mónada + Asincronismo = CompletableFuture</div>
 									<table class="fragment">
 										<thead>
 											<tr>
+												<th></th>
 												<th></th>
 												<th>unit</th>
 												<th>bind</th>
@@ -132,9 +153,28 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
 										</thead>
 										<tbody>
 											<tr>
+												<td>Java</td>
 												<td style="font-weight: bold;">CompletableFuture&lt;T&gt;</td>
 												<td>supplyAsync</td>
 												<td>thenComposeAsync</td>
+											</tr>
+											<tr>
+												<td>JS</td>
+												<td style="font-weight: bold;">Promise*</td>
+												<td>new Promise()</td>
+												<td>promise.then</td>
+											</tr>
+											<tr>
+												<td>Scala</td>
+												<td style="font-weight: bold;">Future[T]</td>
+												<td>Future{}</td>
+												<td>future.flatMap</td>
+											</tr>
+											<tr>
+												<td>C#</td>
+												<td style="font-weight: bold;">Task&lt;T&gt;</td>
+												<td>Task.FromResult</td>
+												<td>promise.Then*</td>
 											</tr>
 										</tbody>
 									</table>
