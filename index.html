@@ -8,6 +8,7 @@
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -46,12 +47,12 @@
 				</section>
                 <section>
                     <h2>Ejecución bloqueante</h2>
-                    <pre><code class="java hljs" data-trim>
-String state = restApi.pay(sale);
+                    <pre><code class="scala hljs" data-trim>
+val state = restApi.pay(sale);
 
-String result = crm.register(state, sale);
+val result = crm.register(state, sale);
 
-String sent = smtp.send(sale);
+val sent = smtp.send(sale);
 //…
 println(state + result + sent);
 </code></pre>
@@ -85,7 +86,7 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
                 <section>
                     <p>Existe una manera mas fácil?</p>
                     <p class="fragment">Ya que estamos, una manera mas funcional<br>
-										<img style="background: none !important; border: none; box-shadow: none;" src="trphl.png" alt="lambda question">
+										<img style="background: none !important; border: none; box-shadow: none; width:20%; height:auto;" src="lambda_logo.svg" alt="lambda question">
 										</p>
                 </section>
                 <section>
@@ -98,6 +99,7 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
 										<p class="fragment">Representan un contexto</p>
                 </section>
 								<section>
+									<section>
 									<h2>Mónadas que ya usamos</h2>
 									<table>
 										<thead>
@@ -139,45 +141,84 @@ executor.execute(new CallToRemoteServiceB(new Callback&lt;Integer&gt;() {
 											</tr>
 										</tbody>
 									</table>
+									</section>
+
+									<section>
+											<h2>Mónada Option</h2>
+											<pre><code class="scala hljs" data-trim>
+val v = map.get("key")
+
+var res: String = _
+if(v != null && v == "value" && map.containsKey(value)){
+    res = map.get(v)
+}else{
+    res = "not found"
+}</code></pre>
+<div class="fragment">
+<i class="fa fa-angle-double-down" aria-hidden="true"></i>
+											<pre><code class="scala hljs" data-trim>
+val res = map.get("key")
+	.filter( _ == "value" )
+	.flatMap( s => map.get(s) )
+	.getOrElse("not found")</code></pre>
+</div>
+									</section>
+
 								</section>
 								<section>
-									<div>Mónada + Asincronismo = CompletableFuture</div>
-									<table class="fragment">
-										<thead>
-											<tr>
-												<th></th>
-												<th></th>
-												<th>unit</th>
-												<th>bind</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Java</td>
-												<td style="font-weight: bold;">CompletableFuture&lt;T&gt;</td>
-												<td>supplyAsync</td>
-												<td>thenComposeAsync</td>
-											</tr>
-											<tr>
-												<td>JS</td>
-												<td style="font-weight: bold;">Promise*</td>
-												<td>new Promise()</td>
-												<td>promise.then</td>
-											</tr>
-											<tr>
-												<td>Scala</td>
-												<td style="font-weight: bold;">Future[T]</td>
-												<td>Future{}</td>
-												<td>future.flatMap</td>
-											</tr>
-											<tr>
-												<td>C#</td>
-												<td style="font-weight: bold;">Task&lt;T&gt;</td>
-												<td>Task.FromResult</td>
-												<td>promise.Then*</td>
-											</tr>
-										</tbody>
-									</table>
+									<ul>
+										<h3>Monada para tareas asincronas</h3>
+										<li class="fragment">El contexto es el tiempo</li>
+										<li class="fragment">Componibles para nunca 'bloquear'</li>
+									</ul>
+								</section>
+
+								<section>
+									<section>
+										<h3>Ejemplos</h3>
+									<ul style="float:left;">
+										<li class="fragment">
+											Java: CompletableFuture&lt;T&gt;
+											<ul>
+												<li>supplyAsync</li>
+												<li>thenComposeAsync</li>
+											</ul>
+										</li>
+										<li class="fragment">JS Promise*
+											<ul>
+												<li>new Promise()</li>
+												<li>then</li>
+											</ul>
+										</li>
+									</ul>
+
+									<ul>
+										<li class="fragment">Scala: Future[T]
+											<ul>
+												<li>Future{}</li>
+												<li>flatMap</li>
+											</ul>
+										</li>
+
+										<li class="fragment">C#: Task&lt;T&gt;
+											<ul>
+												<li>FromResult</li>
+												<li>Then**</li>
+											</ul>
+										</li>
+									</ul>
+								</section>
+								<section>
+<p>Task de C# no provee un method bind pero se puede realizar facilmente</p>
+<pre><code class="cs hljs">public static async Task&lt;V&gt; Bind&lt;U,V&gt;(
+	this Task&lt;U&gt; m, Func&lt;U,Task&lt;V&gt;&gt; f)
+{
+	return await f(await m);
+}
+</code></pre>
+<small>Link: <a href="https://blogs.msdn.microsoft.com/pfxteam/2013/04/03/tasks-monads-and-linq/"><i>Tasks, Monads, and LINQ</i></a></small>
+								</section>
+
 								</section>
                 <section>
                     <h2>Implementación</h2>
