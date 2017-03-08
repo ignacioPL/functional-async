@@ -230,6 +230,39 @@ CompletableFuture&lt;String&gt; posibleResult = asyncRestApi.pay(sale)
 posibleResult.thenAcceptAsync(System.out::println);
 </code></pre>
                 </section>
+											<section>
+<h2>JS</h2>
+<pre><code class="javascript hljs" data-trim>
+"use strict";
+const rp = require('request-promise')
+const user = 'ignaciopl'
+
+class MyUrl {
+	  constructor (url) {
+	        this.url = url;
+	  }
+	    toOption(){
+	        return {
+	            uri: this.url,
+	            headers:{'User-Agent': 'Request-Promise'},
+	            json: true
+	        }
+	   }
+}
+
+let options = new MyUrl(`https://api.github.com/users/${user}`)
+
+console.log('Start')
+
+rp(options.toOption()).then( s => s.repos_url )
+	                    .then( url => new MyUrl(url) )
+	                    .then( url => rp(url.toOption())  )
+	                    .then( repos => console.log(`user ${user} has ${repos.length} repos`) )
+
+console.log('Finish')
+</code></pre>
+								</section>
+
 								<section>
 									<h2>Scala</h2>
 									<pre><code class="scala hljs" data-trim>
